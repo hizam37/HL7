@@ -17,21 +17,14 @@ public class Hl7MessageSender {
     public static void main(String[] args) {
 
         try {
-
             ADT_A01 adtMessage = (ADT_A01) AdtMessageBuilder.createMessage("A01");
-
-
             Connection connection = context.newClient("localhost", PORT_NUMBER, false);
-
-
             Initiator initiator = connection.getInitiator();
-
             Parser parser = context.getPipeParser();
             System.out.println("Sending message:" + "\n" + parser.encode(adtMessage));
             Message response = initiator.sendAndReceive(adtMessage);
             String responseString = parser.encode(response);
             System.out.println("Received response:\n" + responseString);
-
         } catch (Exception e) {
             e.printStackTrace();
         }

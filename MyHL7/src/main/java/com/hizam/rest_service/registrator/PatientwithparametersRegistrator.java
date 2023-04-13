@@ -26,11 +26,6 @@ public class PatientwithparametersRegistrator {
         return item;
     }
 
-    public Parameters update(Parameters item) {
-        logger.info("Updated message mapping: " + item);
-        entityManager.merge(item);
-        return item;
-    }
     public Parameters delete(long id) {
         Parameters item = entityManager.find(Parameters.class,id);
         if(item!=null)

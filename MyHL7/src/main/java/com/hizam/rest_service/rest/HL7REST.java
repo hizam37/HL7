@@ -75,13 +75,7 @@ public class HL7REST {
      return patientwithparametersRegistrator.create(item);
     }
 
-    @PUT
-    @Path("/update")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public Parameters updateparameters(Parameters item) {
-        return patientwithparametersRegistrator.update(item);
-    }
+
 
     @DELETE
     @Path("/{id}")
