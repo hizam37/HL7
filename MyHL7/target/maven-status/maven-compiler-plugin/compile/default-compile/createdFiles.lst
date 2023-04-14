@@ -1,0 +1,10 @@
+com\hizam\rest_service\HL7preparator\Hl7MessageSender.class
+com\hizam\rest_service\rest\HL7REST.class
+com\hizam\rest_service\rest\JaxRsActivator.class
+com\hizam\rest_service\entity\Parameters.class
+com\hizam\rest_service\repository\PatientwithparametersRepository.class
+com\hizam\rest_service\registrator\PatientwithparametersRegistrator.class
+com\hizam\rest_service\HL7preparator\MyHL7MESSAGE.class
+com\hizam\rest_service\HL7preparator\AdtMessageBuilder.class
+com\hizam\rest_service\utils\Resources.class
+com\hizam\rest_service\entity\Parameters_.class

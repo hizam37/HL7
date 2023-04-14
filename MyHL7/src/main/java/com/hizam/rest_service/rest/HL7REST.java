@@ -2,18 +2,11 @@ package com.hizam.rest_service.rest;
 import com.hizam.rest_service.entity.Parameters;
 import com.hizam.rest_service.registrator.PatientwithparametersRegistrator;
 import com.hizam.rest_service.repository.PatientwithparametersRepository;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Scanner;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
-import java.util.logging.Logger;
 
 
 
@@ -21,8 +14,6 @@ import java.util.logging.Logger;
 @Path("/patient_parameters")
 public class HL7REST {
 
-    @Inject
-    private Logger logger;
 
     @Inject
     private PatientwithparametersRepository patientwithparametersRepository;
@@ -43,27 +34,7 @@ public class HL7REST {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_XML)
-    public Parameters getPatientById(@PathParam("id") long id) throws IOException {
-            URL url = new URL("http://localhost:8080/hl7/api/patient_parameters/");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        int responseCode = connection.getResponseCode();
-        if(responseCode != 200) {
-            System.out.println("Error: Response code " + responseCode);
-        }
-            Scanner scanner = new Scanner(url.openStream());
-            StringBuilder response = new StringBuilder();
-            while (scanner.hasNext()) {
-                response.append(scanner.nextLine());
-            }
-            scanner.close();
-
-            String responseData = response.toString();
-            FileWriter fileWriter = new FileWriter(
-                    "PATH\\.txt");
-            PrintWriter printWriter = new PrintWriter(fileWriter);
-            printWriter.print(responseData);
-            printWriter.close();
-            logger.info("Data saved to file.");
+    public Parameters getPatientById(@PathParam("id") long id) {
             return patientwithparametersRepository.getById(id);
     }
 

@@ -3,6 +3,7 @@ package com.hizam.rest_service.HL7preparator;
 
 
 import ca.uhn.hl7v2.model.v24.datatype.CE;
+import ca.uhn.hl7v2.model.v24.datatype.ST;
 import ca.uhn.hl7v2.model.v24.segment.OBX;
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +41,6 @@ public class MyHL7MESSAGE {
         createMshSegment(currentDateTimeString);
         createEvnSegment(currentDateTimeString);
         createPidSegment();
-        createPv1Segment();
         createOBXSegment();
         return _adtMessage;
     }
@@ -58,13 +58,14 @@ public class MyHL7MESSAGE {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     PID pid = _adtMessage.getPID();
+                    ST ssn_number = pid.getSSNNumberPatient();
+                    ssn_number.setValue(eElement.getElementsByTagName("ssn_number").item(0).getTextContent());
                     XPN patientName = pid.getPatientName(0);
                     patientName.getFamilyName().getSurname()
                             .setValue(eElement.getElementsByTagName("family_name").item(0)
                                     .getTextContent());
                     patientName.getGivenName().setValue(eElement.getElementsByTagName(
                             "first_name").item(0).getTextContent());
-                    pid.getPatientIdentifierList(0).getID().setValue("378785433211");
                 }
             }
         } catch (HL7Exception e) {
@@ -105,23 +106,7 @@ public class MyHL7MESSAGE {
     }
 
 
-    private void createPv1Segment() throws DataTypeException {
-        PV1 pv1 = _adtMessage.getPV1();
-        pv1.getPatientClass().setValue("O");
-        PL assignedPatientLocation = pv1.getAssignedPatientLocation();
-        assignedPatientLocation.getFacility().getNamespaceID()
-                .setValue("Some Treatment Facility Name");
-        assignedPatientLocation.getPointOfCare().setValue("Some Point of Care");
-        pv1.getAdmissionType().setValue("ALERT");
-        XCN referringDoctor = pv1.getReferringDoctor(0);
-        referringDoctor.getIDNumber().setValue("99999999");
-        referringDoctor.getFamilyName().getSurname().setValue("Smith");
-        referringDoctor.getGivenName().setValue("Jack");
-        referringDoctor.getIdentifierTypeCode().setValue("456789");
-        pv1.getAdmitDateTime().getTimeOfAnEvent().setValue(getCurrentTimeStamp());
-    }
-
-    private void createOBXSegment() throws DataTypeException, ParserConfigurationException {
+        private void createOBXSegment() throws DataTypeException, ParserConfigurationException {
         try {
             File fXmlFile = new File("C:\\Users\\ISLAM\\Downloads\\response.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

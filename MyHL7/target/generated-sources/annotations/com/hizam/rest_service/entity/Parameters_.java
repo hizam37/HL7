@@ -14,10 +14,10 @@ public abstract class Parameters_ {
 	public static volatile SingularAttribute<Parameters, Integer> Puls;
 	public static volatile SingularAttribute<Parameters, Long> id;
 	public static volatile SingularAttribute<Parameters, Integer> Breathing;
-	public static volatile SingularAttribute<Parameters, Integer> national_number;
 	public static volatile SingularAttribute<Parameters, String> first_name;
 	public static volatile SingularAttribute<Parameters, String> family_name;
 	public static volatile SingularAttribute<Parameters, Integer> NIBP;
+	public static volatile SingularAttribute<Parameters, Integer> ssn_number;
 
 }
 
